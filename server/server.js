@@ -16,6 +16,7 @@ app.use(express.urlencoded({ extended: true }));
  * handle requests for static files
  */
 app.use(express.static(path.join(__dirname, '../client/dist')));
+app.use(express.static(path.join(__dirname, '../client')));
 
 app.get('/' , (req,res) => {
     return res.status(200).sendFile(path.join(__dirname, '../client/dist/index.html'))
