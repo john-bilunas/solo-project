@@ -2,7 +2,7 @@ const express = require('express');
 const path = require('path');
 //test
 const models = require('./models/models.js');
-const healthController = require('./controllers/healthController.js')
+const rentalsController = require('./controllers/rentalsController.js')
 const app = express();
 const PORT = 3000;
 
@@ -22,17 +22,17 @@ app.get('/' , (req,res) => {
     return res.status(200).sendFile(path.join(__dirname, '../client/dist/index.html'))
 })
 
-app.get('/users' , healthController.getUsers , (req,res) => {
+app.get('/rentals' , rentalsController.getRentals , (req,res) => {
     res.status(200).json(res.locals.data);
 })
-app.post('/users'  ,healthController.addUser, (req,res) => {
+app.post('/rentals'  ,rentalsController.addRental, (req,res) => {
     res.status(200).send("Character successfully added");
 })
 
 app.use( (req, res) => {
     return res.sendStatus(404);
 })
-console.log("geh")
+
 //Global error handler
 app.use((err, req, res, next) => {
     const defaultErr = {

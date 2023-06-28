@@ -1,3 +1,15 @@
 body{
-    background-color: #aca9a9;
+    background-color: white;
+}
+
+table{
+    width:100%;
+       border-collapse: collapse;
+       /* visibility: hidden; */
+}
+tr{
+    border:solid 1px rgb(244, 242, 242);
+}
+tr:nth-child(even){
+    background-color:rgb(244, 242, 242);
 }

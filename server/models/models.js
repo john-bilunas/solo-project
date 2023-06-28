@@ -18,29 +18,49 @@ const Schema = mongoose.Schema;
 
 
 
-//set schema for patients collection
-const patientsSchema = new Schema({
-    name : {type : String, required : true},
-    medList: Array,
-    medHistory : {
-        medName : String,
-        dose: String,
-        time : Date
-    },
-});
-const Patients = mongoose.model('patients', patientsSchema)
+// //set schema for patients collection
+// const patientsSchema = new Schema({
+//     name : {type : String, required : true},
+//     medList: Array,
+//     medHistory : {
+//         medName : String,
+//         dose: String,
+//         time : Date
+//     },
+// });
+// const Patients = mongoose.model('patients', patientsSchema)
 
 //set schema for users collection
-const usersSchema = new Schema({
-    username : {type : String, required : true}, //required for signup
-    password : {type : String, required : true}, //required for signup
-    name : {type : String, required : true}, //required for signup
-    patientList : [patientsSchema]
+// const usersSchema = new Schema({
+//     // username : {type : String, required : true}, //required for signup
+//     // password : {type : String, required : true}, //required for signup
+//     // name : {type : String, required : true}, //required for signup
+//     // patientList : String
+//     name: String,
+//     email: String,
+//     phone: String,
+//     dumpsterSize: Number,
+//     dropoff: Date,
+//     pickup: Date
+// });
+// const Users = mongoose.model('users', usersSchema)
+
+//set schema for rentals collection
+const rentalsSchema = new Schema({
+    firstName: String,
+    lastName: String,
+    email: String,
+    phone: String,
+    address: String,
+    dumpsterSize: Number,
+    dropoff: Date,
+    pickup: Date
 });
-const Users = mongoose.model('users', usersSchema)
+
+const Rentals = mongoose.model('rentals',rentalsSchema)
 module.exports = {
-    Users,
-    Patients
+    // Users,
+    Rentals
 }
 
 
