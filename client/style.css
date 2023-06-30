@@ -13,3 +13,10 @@ tr{
 tr:nth-child(even){
     background-color:rgb(244, 242, 242);
 }
+#addRentalForm{
+    display:flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    color: rgb(62, 58, 58);
+    max-width:50%;
+}

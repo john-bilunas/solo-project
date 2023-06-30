@@ -47,14 +47,16 @@ const Schema = mongoose.Schema;
 
 //set schema for rentals collection
 const rentalsSchema = new Schema({
-    firstName: String,
-    lastName: String,
+    name : String,
     email: String,
     phone: String,
     address: String,
     dumpsterSize: Number,
-    dropoff: Date,
-    pickup: Date
+    dropoffDate: Date,
+    pickupDate: Date,
+    dropoffTime: String,
+    pickupTime: String,
+    complete : {type : Boolean, default : false}
 });
 
 const Rentals = mongoose.model('rentals',rentalsSchema)

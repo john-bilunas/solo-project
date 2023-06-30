@@ -18,14 +18,15 @@ rentalsController.getRentals = async (req,res,next) => {
 rentalsController.addRental = async (req,res,next) => {
     console.log("req.body"+ req.body)
     const newRental = new models.Rentals({
-        firstName: req.body.firstName,
-        lastName: req.body.lastName,
+        name: req.body.name,
         address: req.body.address,
         email: req.body.email,
         phone: req.body.phone,
         dumpsterSize: req.body.dumpsterSize,
-        dropoff: req.body.dropoff,
-        pickup: req.body.pickup
+        dropoffDate: req.body.dropoffDate,
+        pickupDate: req.body.pickupDate,
+        dropoffTime: req.body.dropoffTime,
+        pickupTime: req.body.pickupTime
     })
 
     try{
