@@ -28,6 +28,9 @@ app.get('/rentals' , rentalsController.getRentals , (req,res) => {
 app.post('/rentals'  ,rentalsController.addRental, (req,res) => {
     res.status(200).send("Character successfully added");
 })
+app.put('/rentals'  ,rentalsController.updateRental, (req,res) => {
+    res.status(200).send("Character successfully updated");
+})
 
 app.use( (req, res) => {
     return res.sendStatus(404);

@@ -3,24 +3,32 @@ import { useEffect } from 'react';
 import EventListener from './EventListerner';
 
 const AddRental = (props) => {
-
-    // useEffect(() => {
-    //     const form = document.getElementById('addRentalForm');
-
-    // form.addEventListener('submit', () => {
-    //     console.log('submitted')
-    // }, []);
-    // })
+    const {updateAllRentals} = props;
 
         const formSubmission = (e) => {
             e.preventDefault();
             console.log('submission');
             const form = document.getElementById('addRentalForm');
             const formData = new FormData(form);
+
+            const formObject = {};
             // save all of the k:v pairs to state
             for (var [key, value] of formData.entries()) { 
                 console.log(key, value);
+                formObject[key] = value;
               }
+            console.log(formObject);
+            //make post request with fetch
+            fetch('/rentals',{
+                headers: {"Content-Type" : "application/json"},
+                method : "POST",
+                body : JSON.stringify(formObject)
+            })
+            .then(data => console.log(data))
+            // .then(data => console.log(data))
+            .catch(() => console.log("Error with post request"))
+
+            updateAllRentals();
             
     }
 
@@ -41,16 +49,15 @@ const AddRental = (props) => {
                     <option value = "15"> 15 Yards</option>
                 </select>
                 <label for = "dropoffDate">Dropoff Date</label>
-                <input type = "date"id = "dropoffDate" name = "dropoffDate"></input>
+                <input type = "date"id = "dropoffDate" name = "dropoffDate" required></input>
                 <label for = "dropoffTime">Dropoff Time</label>
-                <input type = "time"id = "dropoffTime" name = "dropoffTime"></input>
+                <input type = "time"id = "dropoffTime" name = "dropoffTime" required></input>
                 <label for = "pickupDate">Pick-up Date</label>
-                <input type = "date"id = "pickupDate" name = "pickupDate"></input>
+                <input type = "date"id = "pickupDate" name = "pickupDate" required></input>
                 <label for = "pickupTime">Pick-up Time</label>
-                <input type = "time"id = "pickupTime" name = "pickupTime"></input>
+                <input type = "time"id = "pickupTime" name = "pickupTime" required></input>
                 <input type = "submit"></input>
             </form>
-            {/* <EventListener/> */}
         </>
     )
 

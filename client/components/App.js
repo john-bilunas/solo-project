@@ -1,6 +1,7 @@
 import React from "react";
 import {useState, useEffect} from 'react';
-import TableContainer from './TableContainer.js'
+import PendingTable from './PendingTable.js'
+import PastTable from './PastTable.js'
 import AddRental from "./AddRental.js";
 const App = (props) => {
     // const [rentals, updateRentals] = useState([
@@ -116,34 +117,65 @@ const App = (props) => {
     //   }
     // ])
     const [rentals, updateRentals] = useState([]);
-    useEffect(async () => {
-        // console.log("hello")
-        const fetchPatients = () => {
+    const [pendingRentals, updatePendingRentals] = useState([]);
+    const [pastRentals, updatePastRentals] = useState([]);
 
-            fetch('/rentals')
+    const updateAllRentals = async () => {
+        //added await becuase the
+        await fetch('/rentals?complete=true')
+        .then(data => data.json()) 
+        .then(data => {
+            console.log("log" ,data.length)
+            updatePastRentals(data)
+        }) 
+        // .then(data => console.log("log" ,data))
+        .catch(() => console.log("got nothing"))
+
+        await fetch('/rentals?complete=false')
+        .then(data => data.json()) 
+        .then(data => {
+            console.log("log" ,data.length)
+            updatePendingRentals(data)
+        }) 
+        // .then(data => console.log("log" ,data))
+        .catch(() => console.log("got nothing"))
+
+    }
+
+    useEffect( () => {
+        console.log("useEffect fetch")
+        fetch('/rentals?complete=false')
+        .then(data => data.json()) 
+        .then(data => {
+            console.log("log" ,data.length)
+            updatePendingRentals(data)
+        }) 
+        // .then(data => console.log("log" ,data))
+        .catch(() => console.log("got nothing"))
+
+        fetch('/rentals?complete=true')
             .then(data => data.json()) 
-            // .then(data => {
-            //   //convert all dateStrings to dates
-            //   data.forEach((el) => {
-            //     el.dropoffDate = new Date(el.dropoffDate);
-            //     el.pickupDate = new Date(el.pickupDate);
-            //   });
-            // })
-            .then(data => updateRentals(data))
-            .catch(console.log("got nothing" + err))
-                
-            
-        } 
-        fetchPatients();
-        
+            .then(data => {
+                console.log("log" ,data.length)
+                updatePastRentals(data)
+            }) 
+            // .then(data => console.log("log" ,data))
+            .catch(() => console.log("got nothing"))
+
+        console.log("past" , pastRentals)
+        //separate pending and incomplete rentals
     }, [])
+
+    
 
     console.log(rentals)
     return(
         <div>
-            <AddRental/>
-            <h1>Rental List</h1>
-            <TableContainer rentals = {rentals} />
+            <AddRental updateAllRentals = {updateAllRentals}/>
+            <h1>Pending Rentals</h1>
+            <PendingTable pendingRentals = {pendingRentals} updateAllRentals = {updateAllRentals} />
+            <h1>Complete Rentals</h1>
+            <PastTable pastRentals = {pastRentals} updateAllRentals = {updateAllRentals} />
         </div>
     )
 

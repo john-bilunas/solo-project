@@ -56,7 +56,7 @@ const rentalsSchema = new Schema({
     pickupDate: Date,
     dropoffTime: String,
     pickupTime: String,
-    complete : {type : Boolean, default : false}
+    complete : Boolean
 });
 
 const Rentals = mongoose.model('rentals',rentalsSchema)
